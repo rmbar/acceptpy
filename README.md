@@ -71,6 +71,14 @@ When running the test defined in `echo_pie.test` AcceptPy:
 
 # Installation
 
+Version 1.0.0 can be downloaded directly from the command line via
+
+```
+wget https://goo.gl/oQpEC2 -O accept.py
+```
+
+or by downloading an archive from https://github.com/rmbar/acceptpy/releases/tag/v1.0.0 and copying `/src/main/python/accept.py` into a directory of your choice.
+
 # Running multiple tests
 
 Running multiple tests is accomplished by authoring multiple test files.
