@@ -79,6 +79,35 @@ wget https://goo.gl/oQpEC2 -O accept.py
 
 or by downloading an archive from https://github.com/rmbar/acceptpy/releases/tag/v1.0.0 and copying `/src/main/python/accept.py` into a directory of your choice.
 
+# Types of tests
+
+## Shell command tests
+
+A shell command test is defined in a JSON file with the `.test` extension.  It is generally of the form:
+
+```
+{
+  "test_type": "shell command",
+  "command" : "echo have some pie.",
+  "expect_exit": 0,
+  "expect_stdout": "have some pie.\n"
+}
+```
+
+When a shell command test file is encountered AcceptPy will spawn a shell subprocess and execute the command string
+identified by `command`.  If `expect_exit` is specified AcceptPy will check that the command terminates with the given
+exit code.  If not, the tool will check that the command terminated with exit code 0.  If `expect_stdout` is specified
+AcceptPy will check that the text sent to standard out by the command matches the given text.
+
+## Python tests
+
+A Python test is defined in a `.py` file. When AcceptPy encounters such a file it will execute the Python program
+in a new subprocess using the command:
+
+`python3 file.py`
+
+and score the test as a pass if the returned exit code is 0. Any other exit code will result in a failed scoring.
+
 # Running multiple tests
 
 Running multiple tests is accomplished by authoring multiple test files.
@@ -144,32 +173,3 @@ dog
 
 When running AcceptPy the program will reclusively search all directories under the given test directory argument
 for all files ending in `.test` or `.py`.
-
-# Types of tests
-
-## Shell command tests
-
-A shell command test is defined in a JSON file with the `.test` extension.  It is generally of the form:
-
-```
-{
-  "test_type": "shell command",
-  "command" : "echo have some pie.",
-  "expect_exit": 0,
-  "expect_stdout": "have some pie.\n"
-}
-```
-
-When a shell command test file is encountered AcceptPy will spawn a shell subprocess and execute the command string
-identified by `command`.  If `expect_exit` is specified AcceptPy will check that the command terminates with the given
-exit code.  If not, the tool will check that the command terminated with exit code 0.  If `expect_stdout` is specified
-AcceptPy will check that the text sent to standard out by the command matches the given text.
-
-## Python tests
-
-A Python test is defined in a `.py` file. When AcceptPy encounters such a file it will execute the Python program
-in a new subprocess using the command:
-
-`python3 file.py`
-
-and score the test as a pass if the returned exit code is 0. Any other exit code will result in a failed scoring.
