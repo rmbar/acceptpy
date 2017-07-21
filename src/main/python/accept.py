@@ -143,18 +143,21 @@ if __name__ == "__main__":
     # Determine the tests directory path from the command line arguments.
     #
     parser = argparse.ArgumentParser()
-    parser.add_argument('tests_dir', type=str, help='the directory containing tests to run')
+    parser.add_argument('tests_path', type=str, help='the directory containing tests to run')
     args = parser.parse_args()
-    tests_dir_path = args.tests_dir
+    tests_path = args.tests_path
 
     #
     # Find all test files.
     #
     test_file_paths = []
-    for root, dirs, files in os.walk(tests_dir_path):
-        for file in files:
-            if file.endswith(".test") or file.endswith(".py"):
-                test_file_paths.append(os.path.join(root, file))
+    if os.path.isfile(tests_path):
+        test_file_paths.append(tests_path)
+    else:
+        for root, dirs, files in os.walk(tests_path):
+            for file in files:
+                if file.endswith(".test") or file.endswith(".py"):
+                    test_file_paths.append(os.path.join(root, file))
 
     #
     # Report found test files to user
