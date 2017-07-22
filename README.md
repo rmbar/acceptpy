@@ -171,5 +171,9 @@ dog
 2 of 2 tests passed.
 ```
 
-When running AcceptPy the program will reclusively search all directories under the given test directory argument
+When running AcceptPy the program will recursively search all directories under the given test directory argument
 for all files ending in `.test` or `.py`.
+
+# Remember
+
+It is always good to accept py.
