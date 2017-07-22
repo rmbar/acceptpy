@@ -1,0 +1,30 @@
+[95m
+#########################
+   Welcome to AcceptPy   
+#########################
+[0m
+searching for tests...
+
+tests/bad_test_type.test
+
+found 1 tests.
+
+[95m
+#########################
+   Test 1 of 1
+#########################
+[0m
+[95m[running: tests/bad_test_type.test][0m
+[93munknown test type in test file: tests/bad_test_type.test[0m
+[91m[FAILED]
+[0m
+[95m
+#########################
+   Results:
+#########################
+[0m
+failed tests:
+tests/bad_test_type.test
+[91m
+0 of 1 tests passed.
+[0m
