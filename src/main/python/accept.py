@@ -124,9 +124,8 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
 
     if len(completed_process.stdout) > 0:
-        print(HEADER + "<begin stdout>" + END_COLOR)
-        print(completed_process.stdout.decode('utf-8'))
-        print(HEADER + "<end stdout>" + END_COLOR)
+        print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
+              HEADER + "<end stdout>" + END_COLOR)
 
     #
     # Check if the exit code and standard out match expectations if specified.
@@ -135,9 +134,9 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
 
     if expected_stdout is not None and expected_stdout != completed_process.stdout.decode('utf-8'):
         test_passed = False
-        print(FAIL + "<expected stdout>" + END_COLOR)
-        print(expected_stdout)
-        print(FAIL + "<expected stdout>" + END_COLOR)
+        print(FAIL + "<expected out>" + END_COLOR + expected_stdout + FAIL + "<end expected out>" + END_COLOR)
+        # n.b. we use the string "<expected out>" instead of "<expected stdout>" so same char length as "<begin stdout>"
+        # and thus lines up visually.
 
     if expected_exit is not None and expected_exit != completed_process.returncode:
         test_passed = False
