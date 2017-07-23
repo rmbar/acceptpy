@@ -5,7 +5,7 @@
 [0m
 searching for tests...
 
-tests/echo_just_command.test
+tests/echo_dog_legacy.test
 
 found 1 tests.
 
@@ -14,7 +14,7 @@ found 1 tests.
    Test 1 of 1
 #########################
 [0m
-[95m[running: tests/echo_just_command.test][0m
+[95m[running: tests/echo_dog_legacy.test][0m
 [95mshell command: echo dog[0m
 [95m<begin stdout>[0m
 dog

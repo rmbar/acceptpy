@@ -1,5 +1,5 @@
 {
     "test_type" : "shell command",
     "command"   : "echo dog",
-    "expect_stdout" : "cat\n"
+    "expect_exit" : 1
 }

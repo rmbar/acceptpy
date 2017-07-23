@@ -26,6 +26,8 @@ import subprocess
 #
 # Constant string prefixes and suffix for printing colors to the console.
 #
+import sys
+
 HEADER = '\033[95m'
 OK_GREEN = '\033[92m'
 WARNING = '\033[93m'
@@ -76,7 +78,10 @@ def run_test_from_json_test_file(test_file_path: str):
     #
     # Determine the kind of test to run and run it.
     #
-    test_type = test.get('test_type', None)
+    test_type = test.get('test type', None)
+    if test_type is None:
+        test_type = test.get('test_type', None) # support legacy key name
+
     if test_type is None:
         print(WARNING + "missing test_type in test file: " + test_file_path + END_COLOR)
         return False
@@ -89,8 +94,13 @@ def run_test_from_json_test_file(test_file_path: str):
             print(WARNING + "missing command in test file: " + test_file_path + END_COLOR)
             return False
 
-        expect_exit = test.get('expect_exit', None)
-        expect_stdout = test.get('expect_stdout', None)
+        expect_exit = test.get('expect exit', None)
+        if expect_exit is None:
+            expect_exit = test.get('expect_exit', None) # support legacy key name
+
+        expect_stdout = test.get('expect stdout', None)
+        if expect_stdout is None:
+            expect_stdout = test.get('expect_stdout', None)  # support legacy key name
 
         print(HEADER + "shell command: " + command + END_COLOR)
         return run_shell_command(command, expect_exit, expect_stdout)
@@ -114,8 +124,9 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
 
     if len(completed_process.stdout) > 0:
-        print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
-              HEADER + "<end stdout>" + END_COLOR)
+        print(HEADER + "<begin stdout>" + END_COLOR)
+        print(completed_process.stdout.decode('utf-8'))
+        print(HEADER + "<end stdout>" + END_COLOR)
 
     #
     # Check if the exit code and standard out match expectations if specified.
@@ -124,9 +135,9 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
 
     if expected_stdout is not None and expected_stdout != completed_process.stdout.decode('utf-8'):
         test_passed = False
-        print(FAIL + "<expected out>" + END_COLOR + expected_stdout + FAIL + "<end expected out>" + END_COLOR)
-        # n.b. we use the string "<expected out>" instead of "<expected stdout>" so same char length as "<begin stdout>"
-        # and thus lines up visually.
+        print(FAIL + "<expected stdout>" + END_COLOR)
+        print(expected_stdout)
+        print(FAIL + "<expected stdout>" + END_COLOR)
 
     if expected_exit is not None and expected_exit != completed_process.returncode:
         test_passed = False
@@ -222,3 +233,11 @@ if __name__ == "__main__":
     print(str(len(test_file_paths) - len(failed_test_files_paths)) + " of " + str(len(test_file_paths)) +
           " tests passed.")
     print(END_COLOR)
+
+    #
+    # Exit.
+    #
+    if len(failed_test_files_paths) > 0:
+        sys.exit(1)
+    else:
+        sys.exit(0)

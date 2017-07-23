@@ -5,7 +5,7 @@
 [0m
 searching for tests...
 
-tests/echo_just_command.test
+tests/bad_test_type_legacy.test
 
 found 1 tests.
 
@@ -14,19 +14,17 @@ found 1 tests.
    Test 1 of 1
 #########################
 [0m
-[95m[running: tests/echo_just_command.test][0m
-[95mshell command: echo dog[0m
-[95m<begin stdout>[0m
-dog
-
-[95m<end stdout>[0m
-[92m[PASSED]
+[95m[running: tests/bad_test_type_legacy.test][0m
+[93munknown test type in test file: tests/bad_test_type_legacy.test[0m
+[91m[FAILED]
 [0m
 [95m
 #########################
    Results:
 #########################
 [0m
-[92m
-1 of 1 tests passed.
+failed tests:
+tests/bad_test_type_legacy.test
+[91m
+0 of 1 tests passed.
 [0m
