@@ -26,6 +26,8 @@ import subprocess
 #
 # Constant string prefixes and suffix for printing colors to the console.
 #
+import sys
+
 HEADER = '\033[95m'
 OK_GREEN = '\033[92m'
 WARNING = '\033[93m'
@@ -231,3 +233,11 @@ if __name__ == "__main__":
     print(str(len(test_file_paths) - len(failed_test_files_paths)) + " of " + str(len(test_file_paths)) +
           " tests passed.")
     print(END_COLOR)
+
+    #
+    # Exit.
+    #
+    if len(failed_test_files_paths) > 0:
+        sys.exit(1)
+    else:
+        sys.exit(0)
