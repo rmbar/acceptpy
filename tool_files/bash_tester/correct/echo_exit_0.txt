@@ -16,9 +16,7 @@ found 1 tests.
 [0m
 [95m[running: tests/echo_exit_0.test][0m
 [95mshell command: echo dog[0m
-[95m<begin stdout>[0m
-dog
-
+[95m<begin stdout>[0mdog
 [95m<end stdout>[0m
 [92m[PASSED]
 [0m
