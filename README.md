@@ -6,10 +6,10 @@ For example we can use AcceptPy to test the operation of the console `echo` comm
 
 ```
 {
-  "test_type": "shell command",
+  "test type": "shell command",
   "command" : "echo have some pie.",
-  "expect_exit": 0,
-  "expect_stdout": "have some pie.\n"
+  "expect exit": 0,
+  "expect stdout": "have some pie.\n"
 }
 ```
 This test checks than executing `echo have some pie.` prints:
@@ -87,10 +87,10 @@ A shell command test is defined in a JSON file with the `.test` extension.  It i
 
 ```
 {
-  "test_type": "shell command",
+  "test type": "shell command",
   "command" : "echo have some pie.",
-  "expect_exit": 0,
-  "expect_stdout": "have some pie.\n"
+  "expect exit": 0,
+  "expect stdout": "have some pie.\n"
 }
 ```
 
@@ -115,8 +115,8 @@ Running multiple tests is accomplished by authoring multiple test files.
 For example:
 
 ```
-$ echo '{ "test_type": "shell command", "command" : "echo dog" }' > echo_dog.test
-$ echo '{ "test_type": "shell command", "command" : "echo cat" }' > echo_cat.test
+$ echo '{ "test type": "shell command", "command" : "echo dog" }' > echo_dog.test
+$ echo '{ "test type": "shell command", "command" : "echo cat" }' > echo_cat.test
 $ python3 ~/accept.py ./
 ```
 
@@ -176,4 +176,4 @@ for all files ending in `.test` or `.py`.
 
 # Remember
 
-It is always good to accept py.
+It is always polite to accept py.

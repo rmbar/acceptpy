@@ -76,7 +76,10 @@ def run_test_from_json_test_file(test_file_path: str):
     #
     # Determine the kind of test to run and run it.
     #
-    test_type = test.get('test_type', None)
+    test_type = test.get('test type', None)
+    if test_type is None:
+        test_type = test.get('test_type', None) # support legacy key name
+
     if test_type is None:
         print(WARNING + "missing test_type in test file: " + test_file_path + END_COLOR)
         return False
@@ -89,8 +92,13 @@ def run_test_from_json_test_file(test_file_path: str):
             print(WARNING + "missing command in test file: " + test_file_path + END_COLOR)
             return False
 
-        expect_exit = test.get('expect_exit', None)
-        expect_stdout = test.get('expect_stdout', None)
+        expect_exit = test.get('expect exit', None)
+        if expect_exit is None:
+            expect_exit = test.get('expect_exit', None) # support legacy key name
+
+        expect_stdout = test.get('expect stdout', None)
+        if expect_stdout is None:
+            expect_stdout = test.get('expect_stdout', None)  # support legacy key name
 
         print(HEADER + "shell command: " + command + END_COLOR)
         return run_shell_command(command, expect_exit, expect_stdout)
