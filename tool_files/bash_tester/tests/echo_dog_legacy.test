@@ -1,0 +1,5 @@
+{
+    "test_type" : "shell command",
+    "command"   : "echo dog",
+    "expect_stdout" : "dog\n"
+}

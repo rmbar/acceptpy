@@ -1,4 +1,4 @@
 {
-    "test type" : "shell command",
+    "test_type" : "shell command",
     "command"   : "echo dog"
 }

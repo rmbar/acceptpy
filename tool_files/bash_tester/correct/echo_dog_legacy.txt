@@ -1,0 +1,32 @@
+[95m
+#########################
+   Welcome to AcceptPy   
+#########################
+[0m
+searching for tests...
+
+tests/echo_dog_legacy.test
+
+found 1 tests.
+
+[95m
+#########################
+   Test 1 of 1
+#########################
+[0m
+[95m[running: tests/echo_dog_legacy.test][0m
+[95mshell command: echo dog[0m
+[95m<begin stdout>[0m
+dog
+
+[95m<end stdout>[0m
+[92m[PASSED]
+[0m
+[95m
+#########################
+   Results:
+#########################
+[0m
+[92m
+1 of 1 tests passed.
+[0m

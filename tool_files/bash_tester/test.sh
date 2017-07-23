@@ -3,6 +3,13 @@
 rm -rf out
 mkdir out
 
+python3 ../../src/main/python/accept.py tests/bad_test_type_legacy.test          > out/bad_test_type_legacy.txt
+python3 ../../src/main/python/accept.py tests/missing_shell_command_legacy.test  > out/missing_shell_command_legacy.txt
+python3 ../../src/main/python/accept.py tests/echo_just_command_legacy.test      > out/echo_just_command_legacy.txt
+python3 ../../src/main/python/accept.py tests/echo_exit_0_legacy.test            > out/echo_exit_0_legacy.txt
+python3 ../../src/main/python/accept.py tests/echo_exit_1_legacy.test            > out/echo_exit_1_legacy.txt
+python3 ../../src/main/python/accept.py tests/echo_dog_legacy.test               > out/echo_dog_legacy.txt
+
 python3 ../../src/main/python/accept.py tests/empty_file.test             > out/empty_file.txt
 python3 ../../src/main/python/accept.py tests/empty_json.test             > out/empty_json.txt
 python3 ../../src/main/python/accept.py tests/bad_test_type.test          > out/bad_test_type.txt
