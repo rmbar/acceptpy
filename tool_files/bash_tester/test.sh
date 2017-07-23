@@ -18,6 +18,5 @@ python3 ../../src/main/python/accept.py tests/echo_just_command.test      > out/
 python3 ../../src/main/python/accept.py tests/echo_exit_0.test            > out/echo_exit_0.txt
 python3 ../../src/main/python/accept.py tests/echo_exit_1.test            > out/echo_exit_1.txt
 python3 ../../src/main/python/accept.py tests/echo_dog.test               > out/echo_dog.txt
-python3 ../../src/main/python/accept.py tests/echo_dog_expect_cat.test    > out/echo_dog_expect_cat.txt
 
 diff correct/ out/
