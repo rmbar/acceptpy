@@ -47,9 +47,7 @@ found 1 tests.
 
 [running: /home/user/echo_tests/echo_pie.test]
 shell command: echo have some pie.
-<begin stdout>
-have some pie.
-
+<begin stdout>have some pie.
 <end stdout>
 [PASSED]
 
@@ -143,9 +141,7 @@ found 2 tests.
 
 [running: ./echo_cat.test]
 shell command: echo cat
-<begin stdout>
-cat
-
+<begin stdout>cat
 <end stdout>
 [PASSED]
 
@@ -156,9 +152,7 @@ cat
 
 [running: ./echo_dog.test]
 shell command: echo dog
-<begin stdout>
-dog
-
+<begin stdout>dog
 <end stdout>
 [PASSED]
 
