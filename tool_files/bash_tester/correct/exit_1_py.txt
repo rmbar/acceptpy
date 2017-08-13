@@ -6,7 +6,7 @@ False
 [0m
 searching for tests...
 
-tests/missing_shell_command.test
+tests/exit_1.py
 
 found 1 tests.
 
@@ -15,8 +15,8 @@ found 1 tests.
    Test 1 of 1
 #########################
 [0m
-[95m[running: tests/missing_shell_command.test][0m
-[93mmissing command in test file: tests/missing_shell_command.test[0m
+[95m[running: tests/exit_1.py][0m
+[91m<expected error code 0 but found 1>[0m
 [91m[FAILED]
 [0m
 [95m
@@ -25,7 +25,7 @@ found 1 tests.
 #########################
 [0m
 failed tests:
-tests/missing_shell_command.test
+tests/exit_1.py
 [91m
 0 of 1 tests passed.
 [0m

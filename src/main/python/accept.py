@@ -146,6 +146,14 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     return test_passed
 
 
+def include_file(file_path: str, ignore_py: bool):
+    """Returns whether the given file path should be considered a test file for this execution.
+
+    file_path -- the path of the file in the tests path
+    ignore_py -- whether files that in in .py should be considered a test file
+    """
+    return file_path.endswith(".test") or (file_path.endswith(".py") and not args.ignore_py)
+
 if __name__ == "__main__":
 
     #
@@ -153,19 +161,23 @@ if __name__ == "__main__":
     #
     parser = argparse.ArgumentParser()
     parser.add_argument('tests_path', type=str, help='the directory containing tests to run')
+    parser.add_argument('--ignore_py', dest='ignore_py', action='store_const', const = True, default = False,
+                        help = 'do not treat found .py files in the tests path as tests')
     args = parser.parse_args()
     tests_path = args.tests_path
+
+    print(args.ignore_py)
 
     #
     # Find all test files.
     #
     test_file_paths = []
-    if os.path.isfile(tests_path):
+    if os.path.isfile(tests_path) and include_file(tests_path, args.ignore_py):
         test_file_paths.append(tests_path)
     else:
         for root, dirs, files in os.walk(tests_path):
             for file in files:
-                if file.endswith(".test") or file.endswith(".py"):
+                if include_file(file, args.ignore_py):
                     test_file_paths.append(os.path.join(root, file))
 
     #
