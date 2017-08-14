@@ -18,5 +18,8 @@ python3 ../../src/main/python/accept.py tests/echo_just_command.test      > out/
 python3 ../../src/main/python/accept.py tests/echo_exit_0.test            > out/echo_exit_0.txt
 python3 ../../src/main/python/accept.py tests/echo_exit_1.test            > out/echo_exit_1.txt
 python3 ../../src/main/python/accept.py tests/echo_dog.test               > out/echo_dog.txt
+python3 ../../src/main/python/accept.py tests/empty.py                    > out/empty_py.txt
+python3 ../../src/main/python/accept.py tests/empty.py --ignore_py        > out/empty_py_ignored.txt
+python3 ../../src/main/python/accept.py tests/exit_1.py                   > out/exit_1_py.txt
 
 diff correct/ out/

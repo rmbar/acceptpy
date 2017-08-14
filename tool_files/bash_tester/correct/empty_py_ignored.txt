@@ -1,0 +1,18 @@
+[95m
+#########################
+   Welcome to AcceptPy   
+#########################
+[0m
+searching for tests...
+
+
+found 0 tests.
+
+[95m
+#########################
+   Results:
+#########################
+[0m
+[92m
+0 of 0 tests passed.
+[0m

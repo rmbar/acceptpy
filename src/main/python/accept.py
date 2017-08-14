@@ -42,8 +42,9 @@ def run_test_from_python_test_file(test_file_path: str):
     """
 
     print(HEADER + "[running: " + test_file_path + "]" + END_COLOR)
-
-    return run_shell_command("python3 " + test_file_path, 0)
+    test_file_parent_path = os.path.abspath(os.path.join(test_file_path, os.pardir))
+    test_file_name = os.path.basename(test_file_path)
+    return run_shell_command("python3 " + test_file_name, test_file_parent_path, 0)
 
 
 def run_test_from_json_test_file(test_file_path: str):
@@ -103,17 +104,20 @@ def run_test_from_json_test_file(test_file_path: str):
             expect_stdout = test.get('expect_stdout', None)  # support legacy key name
 
         print(HEADER + "shell command: " + command + END_COLOR)
-        return run_shell_command(command, expect_exit, expect_stdout)
+
+        test_file_parent_path = os.path.abspath(os.path.join(test_file_path, os.pardir))
+        return run_shell_command(command, test_file_parent_path, expect_exit, expect_stdout)
     else:
         print(WARNING + "unknown test type in test file: " + test_file_path + END_COLOR)
         return False
 
 
-def run_shell_command(command: str, expected_exit: int, expected_stdout: str = None):
+def run_shell_command(command: str, working_directory: str, expected_exit: int, expected_stdout: str = None):
     """Runs the given command string as a shell command in a new subprocess and returns whether the command
        met the given expectations.
 
     command -- the shell command to run e.g. "ls -l"
+    working_directory -- the working directory of the launched shell
     expected_exit -- the expected exit code of the shell command or None for no expectation
     expected_stdout -- the expected standard out characters printed by the shell command or None for no expectation
     """
@@ -121,7 +125,7 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     #
     # Run the given shell command and report standard out.
     #
-    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, cwd=working_directory)
 
     if len(completed_process.stdout) > 0:
         print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
@@ -146,6 +150,14 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     return test_passed
 
 
+def include_file(file_path: str, ignore_py: bool):
+    """Returns whether the given file path should be considered a test file for this execution.
+
+    file_path -- the path of the file in the tests path
+    ignore_py -- whether files that in in .py should be considered a test file
+    """
+    return file_path.endswith(".test") or (file_path.endswith(".py") and not ignore_py)
+
 if __name__ == "__main__":
 
     print(HEADER)
@@ -159,6 +171,8 @@ if __name__ == "__main__":
     #
     parser = argparse.ArgumentParser()
     parser.add_argument('tests_path', type=str, help='the directory containing tests to run')
+    parser.add_argument('--ignore_py', dest='ignore_py', action='store_const', const=True, default=False,
+                        help='do not treat found .py files in the tests path as tests')
     args = parser.parse_args()
     tests_path = args.tests_path
 
@@ -168,16 +182,16 @@ if __name__ == "__main__":
     print("searching for tests...")
     print("")
     test_file_paths = []
-    if os.path.isfile(tests_path):
+    if os.path.isfile(tests_path) and include_file(tests_path, args.ignore_py):
         test_file_paths.append(tests_path)
         print(tests_path)
     else:
         for root, dirs, files in os.walk(tests_path):
             for file in files:
-                if file.endswith(".test") or file.endswith(".py"):
-                    f = os.path.join(root, file)
-                    print(f)
-                    test_file_paths.append(f)
+              if include_file(file, args.ignore_py):
+                f = os.path.join(root, file)
+                print(f)
+                test_file_paths.append(f)
 
     print("")
     print("found " + str(len(test_file_paths)) + " tests.")

@@ -1,0 +1,30 @@
+[95m
+#########################
+   Welcome to AcceptPy   
+#########################
+[0m
+searching for tests...
+
+tests/exit_1.py
+
+found 1 tests.
+
+[95m
+#########################
+   Test 1 of 1
+#########################
+[0m
+[95m[running: tests/exit_1.py][0m
+[91m<expected error code 0 but found 1>[0m
+[91m[FAILED]
+[0m
+[95m
+#########################
+   Results:
+#########################
+[0m
+failed tests:
+tests/exit_1.py
+[91m
+0 of 1 tests passed.
+[0m
