@@ -42,8 +42,9 @@ def run_test_from_python_test_file(test_file_path: str):
     """
 
     print(HEADER + "[running: " + test_file_path + "]" + END_COLOR)
-
-    return run_shell_command("python3 " + test_file_path, 0)
+    test_file_parent_path = os.path.abspath(os.path.join(test_file_path, os.pardir))
+    test_file_name = os.path.basename(test_file_path)
+    return run_shell_command("python3 " + test_file_name, test_file_parent_path, 0)
 
 
 def run_test_from_json_test_file(test_file_path: str):
@@ -80,7 +81,7 @@ def run_test_from_json_test_file(test_file_path: str):
     #
     test_type = test.get('test type', None)
     if test_type is None:
-        test_type = test.get('test_type', None) # support legacy key name
+        test_type = test.get('test_type', None)  # support legacy key name
 
     if test_type is None:
         print(WARNING + "missing test_type in test file: " + test_file_path + END_COLOR)
@@ -96,7 +97,7 @@ def run_test_from_json_test_file(test_file_path: str):
 
         expect_exit = test.get('expect exit', None)
         if expect_exit is None:
-            expect_exit = test.get('expect_exit', None) # support legacy key name
+            expect_exit = test.get('expect_exit', None)  # support legacy key name
 
         expect_stdout = test.get('expect stdout', None)
         if expect_stdout is None:
@@ -124,7 +125,7 @@ def run_shell_command(command: str, working_directory: str, expected_exit: int, 
     #
     # Run the given shell command and report standard out.
     #
-    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, cwd = working_directory)
+    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, cwd=working_directory)
 
     if len(completed_process.stdout) > 0:
         print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
@@ -155,7 +156,7 @@ def include_file(file_path: str, ignore_py: bool):
     file_path -- the path of the file in the tests path
     ignore_py -- whether files that in in .py should be considered a test file
     """
-    return file_path.endswith(".test") or (file_path.endswith(".py") and not args.ignore_py)
+    return file_path.endswith(".test") or (file_path.endswith(".py") and not ignore_py)
 
 if __name__ == "__main__":
 
@@ -164,8 +165,8 @@ if __name__ == "__main__":
     #
     parser = argparse.ArgumentParser()
     parser.add_argument('tests_path', type=str, help='the directory containing tests to run')
-    parser.add_argument('--ignore_py', dest='ignore_py', action='store_const', const = True, default = False,
-                        help = 'do not treat found .py files in the tests path as tests')
+    parser.add_argument('--ignore_py', dest='ignore_py', action='store_const', const=True, default=False,
+                        help='do not treat found .py files in the tests path as tests')
     args = parser.parse_args()
     tests_path = args.tests_path
 
