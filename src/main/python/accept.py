@@ -80,7 +80,7 @@ def run_test_from_json_test_file(test_file_path: str):
     #
     test_type = test.get('test type', None)
     if test_type is None:
-        test_type = test.get('test_type', None) # support legacy key name
+        test_type = test.get('test_type', None)  # support legacy key name
 
     if test_type is None:
         print(WARNING + "missing test_type in test file: " + test_file_path + END_COLOR)
@@ -96,7 +96,7 @@ def run_test_from_json_test_file(test_file_path: str):
 
         expect_exit = test.get('expect exit', None)
         if expect_exit is None:
-            expect_exit = test.get('expect_exit', None) # support legacy key name
+            expect_exit = test.get('expect_exit', None)  # support legacy key name
 
         expect_stdout = test.get('expect stdout', None)
         if expect_stdout is None:
@@ -148,6 +148,12 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
 
 if __name__ == "__main__":
 
+    print(HEADER)
+    print("#########################")
+    print("   Welcome to AcceptPy   ")
+    print("#########################")
+    print(END_COLOR)
+
     #
     # Determine the tests directory path from the command line arguments.
     #
@@ -159,28 +165,19 @@ if __name__ == "__main__":
     #
     # Find all test files.
     #
+    print("searching for tests...")
+    print("")
     test_file_paths = []
     if os.path.isfile(tests_path):
         test_file_paths.append(tests_path)
+        print(tests_path)
     else:
         for root, dirs, files in os.walk(tests_path):
             for file in files:
                 if file.endswith(".test") or file.endswith(".py"):
-                    test_file_paths.append(os.path.join(root, file))
-
-    #
-    # Report found test files to user
-    #
-    print(HEADER)
-    print("#########################")
-    print("   Welcome to AcceptPy   ")
-    print("#########################")
-    print(END_COLOR)
-
-    print("searching for tests...")
-    print("")
-    for file in test_file_paths:
-        print(file)
+                    f = os.path.join(root, file)
+                    print(f)
+                    test_file_paths.append(f)
 
     print("")
     print("found " + str(len(test_file_paths)) + " tests.")
