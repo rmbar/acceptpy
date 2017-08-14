@@ -6,7 +6,7 @@ False
 [0m
 searching for tests...
 
-tests/missing_shell_command.test
+tests/empty.py
 
 found 1 tests.
 
@@ -15,17 +15,14 @@ found 1 tests.
    Test 1 of 1
 #########################
 [0m
-[95m[running: tests/missing_shell_command.test][0m
-[93mmissing command in test file: tests/missing_shell_command.test[0m
-[91m[FAILED]
+[95m[running: tests/empty.py][0m
+[92m[PASSED]
 [0m
 [95m
 #########################
    Results:
 #########################
 [0m
-failed tests:
-tests/missing_shell_command.test
-[91m
-0 of 1 tests passed.
+[92m
+1 of 1 tests passed.
 [0m
