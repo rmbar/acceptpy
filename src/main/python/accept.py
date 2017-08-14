@@ -103,17 +103,20 @@ def run_test_from_json_test_file(test_file_path: str):
             expect_stdout = test.get('expect_stdout', None)  # support legacy key name
 
         print(HEADER + "shell command: " + command + END_COLOR)
-        return run_shell_command(command, expect_exit, expect_stdout)
+
+        test_file_parent_path = os.path.abspath(os.path.join(test_file_path, os.pardir))
+        return run_shell_command(command, test_file_parent_path, expect_exit, expect_stdout)
     else:
         print(WARNING + "unknown test type in test file: " + test_file_path + END_COLOR)
         return False
 
 
-def run_shell_command(command: str, expected_exit: int, expected_stdout: str = None):
+def run_shell_command(command: str, working_directory: str, expected_exit: int, expected_stdout: str = None):
     """Runs the given command string as a shell command in a new subprocess and returns whether the command
        met the given expectations.
 
     command -- the shell command to run e.g. "ls -l"
+    working_directory -- the working directory of the launched shell
     expected_exit -- the expected exit code of the shell command or None for no expectation
     expected_stdout -- the expected standard out characters printed by the shell command or None for no expectation
     """
@@ -121,7 +124,7 @@ def run_shell_command(command: str, expected_exit: int, expected_stdout: str = N
     #
     # Run the given shell command and report standard out.
     #
-    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE)
+    completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, cwd = working_directory)
 
     if len(completed_process.stdout) > 0:
         print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
