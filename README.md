@@ -88,14 +88,16 @@ A shell command test is defined in a JSON file with the `.test` extension.  It i
   "test type": "shell command",
   "command" : "echo have some pie.",
   "expect exit": 0,
-  "expect stdout": "have some pie.\n"
+  "expect stdout": "have some pie.\n",
+  "expect stdout contains": "pie"
 }
 ```
 
 When a shell command test file is encountered AcceptPy will spawn a shell subprocess and execute the command string
-identified by `command`.  If `expect_exit` is specified AcceptPy will check that the command terminates with the given
-exit code.  If not, the tool will check that the command terminated with exit code 0.  If `expect_stdout` is specified
-AcceptPy will check that the text sent to standard out by the command matches the given text.
+identified by `command`.  If `expect exit` is specified AcceptPy will check that the command terminates with the given
+exit code.  If not, the tool will check that the command terminated with exit code 0.  If `expect stdout` is specified
+AcceptPy will check that the text sent to standard out by the command matches the given text. If `expect stdout contains` is specified
+AcceptPy will check that the text sent to standard out by the command contains the given text.
 
 ## Python tests
 
