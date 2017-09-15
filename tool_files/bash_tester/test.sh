@@ -10,17 +10,18 @@ python3 ../../src/main/python/accept.py tests/echo_exit_0_legacy.test           
 python3 ../../src/main/python/accept.py tests/echo_exit_1_legacy.test            > out/echo_exit_1_legacy.txt
 python3 ../../src/main/python/accept.py tests/echo_dog_legacy.test               > out/echo_dog_legacy.txt
 
-python3 ../../src/main/python/accept.py tests/empty_file.test             > out/empty_file.txt
-python3 ../../src/main/python/accept.py tests/empty_json.test             > out/empty_json.txt
-python3 ../../src/main/python/accept.py tests/bad_test_type.test          > out/bad_test_type.txt
-python3 ../../src/main/python/accept.py tests/missing_shell_command.test  > out/missing_shell_command.txt
-python3 ../../src/main/python/accept.py tests/echo_just_command.test      > out/echo_just_command.txt
-python3 ../../src/main/python/accept.py tests/echo_exit_0.test            > out/echo_exit_0.txt
-python3 ../../src/main/python/accept.py tests/echo_exit_1.test            > out/echo_exit_1.txt
-python3 ../../src/main/python/accept.py tests/echo_dog.test               > out/echo_dog.txt
-python3 ../../src/main/python/accept.py tests/echo_dog_contains.test      > out/echo_dog_contains.txt
-python3 ../../src/main/python/accept.py tests/empty.py                    > out/empty_py.txt
-python3 ../../src/main/python/accept.py tests/empty.py --ignore_py        > out/empty_py_ignored.txt
-python3 ../../src/main/python/accept.py tests/exit_1.py                   > out/exit_1_py.txt
+python3 ../../src/main/python/accept.py tests/empty_file.test              > out/empty_file.txt
+python3 ../../src/main/python/accept.py tests/empty_json.test              > out/empty_json.txt
+python3 ../../src/main/python/accept.py tests/bad_test_type.test           > out/bad_test_type.txt
+python3 ../../src/main/python/accept.py tests/missing_shell_command.test   > out/missing_shell_command.txt
+python3 ../../src/main/python/accept.py tests/echo_just_command.test       > out/echo_just_command.txt
+python3 ../../src/main/python/accept.py tests/echo_exit_0.test             > out/echo_exit_0.txt
+python3 ../../src/main/python/accept.py tests/echo_exit_1.test             > out/echo_exit_1.txt
+python3 ../../src/main/python/accept.py tests/echo_dog.test                > out/echo_dog.txt
+python3 ../../src/main/python/accept.py tests/echo_dog_contains.test       > out/echo_dog_contains.txt
+python3 ../../src/main/python/accept.py tests/empty.py                     > out/empty_py.txt
+python3 ../../src/main/python/accept.py tests/empty.py --ignore_py         > out/empty_py_ignored.txt
+python3 ../../src/main/python/accept.py tests/exit_1.py                    > out/exit_1_py.txt
+python3 ../../src/main/python/accept.py tests/echo_dog_no_contain_cat.test > out/echo_dog_no_contain_cat.txt
 
 diff correct/ out/

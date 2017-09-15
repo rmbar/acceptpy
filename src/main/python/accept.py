@@ -103,16 +103,19 @@ def run_test_from_json_test_file(test_file_path: str):
         if expect_stdout is None:
             expect_stdout = test.get('expect_stdout', None)  # support legacy key name
 
+        expect_stdout_contains = test.get('expect stdout contains', None)
+
         print(HEADER + "shell command: " + command + END_COLOR)
 
         test_file_parent_path = os.path.abspath(os.path.join(test_file_path, os.pardir))
-        return run_shell_command(command, test_file_parent_path, expect_exit, expect_stdout)
+        return run_shell_command(command, test_file_parent_path, expect_exit, expect_stdout, expect_stdout_contains)
     else:
         print(WARNING + "unknown test type in test file: " + test_file_path + END_COLOR)
         return False
 
 
-def run_shell_command(command: str, working_directory: str, expected_exit: int, expected_stdout: str = None):
+def run_shell_command(command: str, working_directory: str, expected_exit: int, expected_stdout: str = None,
+                      expect_stdout_contains: str = None):
     """Runs the given command string as a shell command in a new subprocess and returns whether the command
        met the given expectations.
 
@@ -120,14 +123,17 @@ def run_shell_command(command: str, working_directory: str, expected_exit: int, 
     working_directory -- the working directory of the launched shell
     expected_exit -- the expected exit code of the shell command or None for no expectation
     expected_stdout -- the expected standard out characters printed by the shell command or None for no expectation
+    expect_stdout_contains -- an expected substring of standard out characters printed by the shell command or None for no
+                              expectation
     """
 
     #
     # Run the given shell command and report standard out.
     #
     completed_process = subprocess.run(command, shell=True, stdout=subprocess.PIPE, cwd=working_directory)
+    std_out = completed_process.stdout.decode('utf-8') # take stdout bytes and assume UTF-8 text
 
-    if len(completed_process.stdout) > 0:
+    if len(std_out) > 0:
         print(HEADER + "<begin stdout>" + END_COLOR + completed_process.stdout.decode('utf-8') +
               HEADER + "<end stdout>" + END_COLOR)
 
@@ -136,11 +142,16 @@ def run_shell_command(command: str, working_directory: str, expected_exit: int, 
     #
     test_passed = True
 
-    if expected_stdout is not None and expected_stdout != completed_process.stdout.decode('utf-8'):
+    if expected_stdout is not None and expected_stdout != std_out:
         test_passed = False
         print(FAIL + "<expected out>" + END_COLOR + expected_stdout + FAIL + "<end expected out>" + END_COLOR)
         # n.b. we use the string "<expected out>" instead of "<expected stdout>" so same char length as "<begin stdout>"
         # and thus lines up visually.
+
+    if expect_stdout_contains is not None and expect_stdout_contains not in std_out:
+        test_passed = False
+        print(FAIL + "<expected stdout to contain>" + END_COLOR + expect_stdout_contains + FAIL +
+              "<end expected stdout to contain>" + END_COLOR)
 
     if expected_exit is not None and expected_exit != completed_process.returncode:
         test_passed = False

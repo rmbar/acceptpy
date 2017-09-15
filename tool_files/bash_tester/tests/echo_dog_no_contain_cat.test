@@ -1,0 +1,5 @@
+{
+    "test type" : "shell command",
+    "command"   : "echo dog",
+    "expect stdout contains" : "cat"
+}
