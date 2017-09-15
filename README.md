@@ -72,10 +72,10 @@ When running the test defined in `echo_pie.test` AcceptPy:
 Version 1.2.0 can be downloaded directly from the command line via
 
 ```
-wget https://github.com/rmbar/acceptpy/releases/download/v1.2.0/accept.py
+wget https://github.com/rmbar/acceptpy/releases/download/v1.3.0/accept.py
 ```
 
-or by downloading an archive from https://github.com/rmbar/acceptpy/releases/tag/v1.2.0 and copying `/src/main/python/accept.py` into a directory of your choice.
+or by downloading an archive from https://github.com/rmbar/acceptpy/releases/tag/v1.3.0 and copying `/src/main/python/accept.py` into a directory of your choice.
 
 # Types of tests
 
